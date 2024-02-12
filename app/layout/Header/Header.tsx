@@ -3,9 +3,9 @@ import React from "react";
 
 function Header() {
   return (
-    <div>
-      <header className="bg-white p-5">header</header>
-    </div>
+    <header className="bg-white p-5">
+      Header
+    </header>
   );
 }
 

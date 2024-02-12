@@ -5,21 +5,21 @@ import Link from "next/link";
 function VerticalLayout() {
   return (
     <div>
-      <div className="bg-[#2B547E] h-[100vh] ">
+      <div className="bg-[#151B54] h-[100vh] ">
         <Link href={"/"}>
           <Image
-            className="pt-5 ml-6"
+            className="pt-2 ml-2"
             src="/logo.png"
-            width={200}
-            height={200}
+            width={250}
+            height={250}
             alt=""
           />
         </Link>
-        <div className="p-5">
-          <ul>
+        <div className="mt-2 p-5">
+          <ul >
             <li>
               <Link
-                className="text-[#C6C4D2] mt-5 block"
+                className="text-[#C6C4D2] mt-3 block"
                 href={"/subject"}
               >
                 Fənn
@@ -39,6 +39,14 @@ function VerticalLayout() {
                 href={"/onlinelesson"}
               >
                 Online dərslər
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="text-[#C6C4D2] mt-3 block"
+                href={"/attendance"}
+              >
+                Davamiyyət (Online dərslər)
               </Link>
             </li>
             <li>

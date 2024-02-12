@@ -1,12 +1,12 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 function Header() {
   return (
     <div>
-        salam
+      <header className="bg-white p-5">header</header>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;

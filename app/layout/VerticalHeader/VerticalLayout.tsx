@@ -1,6 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import './VerticalLayout.scss'
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
+import LaptopIcon from '@mui/icons-material/Laptop';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CastForEducationIcon from '@mui/icons-material/CastForEducation';
+import ModeIcon from '@mui/icons-material/Mode';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import { blue, brown, grey, red } from "@mui/material/colors";
 
 function VerticalLayout() {
   return (
@@ -17,57 +27,70 @@ function VerticalLayout() {
         </Link>
         <div className="mt-2 p-5">
           <ul >
-            <li>
-              <Link
-                className="text-[#C6C4D2] mt-3 block"
-                href={"/subject"}
-              >
+            <li >
+              <AutoStoriesIcon 
+              sx={{  fontSize: 15 }}
+               />
+              <Link  href={"/subject"}>
                 Fənn
               </Link>
             </li>
             <li>
-              <Link
-                className="text-[#C6C4D2] mt-3 block"
-                href={"/lessonschedule"}
-              >
+            <CalendarViewMonthIcon 
+              sx={{  fontSize: 15 }}
+               />
+              <Link   href={"/lessonschedule"}>
                 Dərs cədvəli
               </Link>
             </li>
             <li>
-              <Link
-                className="text-[#C6C4D2] mt-3 block"
-                href={"/onlinelesson"}
-              >
+            <LaptopIcon 
+              sx={{ fontSize: 15 }}
+               />
+              <Link   href={"/onlinelesson"}>
                 Online dərslər
               </Link>
             </li>
             <li>
-              <Link
-                className="text-[#C6C4D2] mt-3 block"
-                href={"/attendance"}
-              >
+            <AccessTimeIcon 
+              sx={{  fontSize: 15 }}
+               />
+              <Link   href={"/attendance"}>
                 Davamiyyət (Online dərslər)
               </Link>
             </li>
             <li>
-              <Link className="text-[#C6C4D2] mt-3 block" href={"/profile"}>
+            <AccountCircleIcon 
+              sx={{  fontSize: 15 }}
+               />
+              <Link   href={"/profile"}>
                 Profil
               </Link>
             </li>
             <li>
-              <Link className="text-[#C6C4D2] mt-3 block" href={"/onlineexam"}>
+            <CastForEducationIcon 
+              sx={{  fontSize: 15 }}
+               />
+              <Link   href={"/onlineexam"}>
                 Online imtahan
               </Link>
             </li>
             <li>
-              <Link className="text-[#C6C4D2] mt-3 block" href={"/writtenexam"}>
+            <ModeIcon 
+              sx={{  fontSize: 15 }}
+               />
+              <Link   href={"/writtenexam"}>
                 Yazılı imtahan
               </Link>
             </li>
-            <li></li>
-            <Link className="text-[#C6C4D2] mt-3 block" href={"/lms"}>
-              LMS
-            </Link>
+            <li>
+            <ContentPasteIcon 
+              sx={{  fontSize: 15 }}
+               />
+              <Link   href={"/lms"}>
+                LMS
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

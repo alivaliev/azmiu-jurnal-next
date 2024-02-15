@@ -10,16 +10,16 @@ ul {
       transition: 0.3s;
     }
     svg {
-    color: #afadb6;
-    transition: 0.3s;
+      color: #afadb6;
+      margin-bottom: 2px;
     }
     &:hover {
-      svg {
-        color: white;
-      }
-      a {
-        color: white;
-      }
+        a {
+          color: white;
+        }
+        svg {
+            color: white;
+        }
     }
-  }
+    }
 }

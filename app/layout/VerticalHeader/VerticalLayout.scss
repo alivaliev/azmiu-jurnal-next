@@ -5,6 +5,7 @@ ul {
     font-size: 15px;
     margin-top: 15px;
     color: #afadb6;
+
     a {
       margin-left: 8px;
       transition: 0.3s;
@@ -14,12 +15,12 @@ ul {
       margin-bottom: 2px;
     }
     &:hover {
-        a {
-          color: white;
-        }
-        svg {
-            color: white;
-        }
+      a {
+        color: white;
+      }
+      svg {
+        color: white;
+      }
     }
-    }
+  }
 }

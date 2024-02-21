@@ -1,13 +1,9 @@
-
-
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 import DataTable from "react-data-table-component";
-import { useEffect, useMemo, useState } from 'react';
-
+import { useEffect, useMemo, useState } from "react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -27,9 +23,9 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <div style={{ padding: '16px' }}>
-        <span>{children}</span>
-      </div>
+        <div style={{ marginTop: "15px" }}>
+          <span>{children}</span>
+        </div>
       )}
     </div>
   );
@@ -38,7 +34,7 @@ function CustomTabPanel(props: TabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -61,15 +57,17 @@ export default function BasicTabs() {
       {
         name: "No",
         selector: (row: any) => row.id,
+        width: "50px",
       },
       {
         name: "Tarix",
         selector: (row: any) => row.tarix,
-
+        width: "150px",
       },
       {
         name: "Saat",
         selector: (row: any) => row.saat,
+        width: "150px",
       },
       {
         name: "Movzu",
@@ -80,11 +78,18 @@ export default function BasicTabs() {
         cell: (d: any) => [
           <button
             key={d.id}
-            className="bg-transparent transition hover:bg-red-400 text-gray-700 font-semibold hover:text-black py-1 px-2 border border-red-500 hover:border-transparent rounded"
+            className=" bg-transparent transition hover:bg-green-400 text-gray-700 font-semibold hover:text-white px-[10px] py-[7px] text-[11px] border border-green-500 hover:border-transparent rounded"
+          >
+            +
+          </button>,
+          <button
+            key={d.id}
+            className="ml-3 bg-transparent transition hover:bg-red-400 text-gray-700 font-semibold hover:text-white p-[7px] text-[11px] border border-red-500 hover:border-transparent rounded"
           >
             Sil
           </button>,
         ],
+        width: "150px",
       },
     ],
     []
@@ -95,18 +100,25 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" >
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
           <Tab label="Item One" {...a11yProps(0)} />
           <Tab label="Item Two" {...a11yProps(1)} />
           <Tab label="Item Three" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Item One
-      <DataTable keyField='id' columns={columns} data={data} pagination={true}></DataTable>
-
+        <DataTable
+          keyField="id"
+          columns={columns}
+          data={data}
+          pagination={true}
+        ></DataTable>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two

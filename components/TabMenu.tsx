@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import DataTable from "react-data-table-component";
 import { useEffect, useMemo, useState } from "react";
+import SelectOption from "./SelectOption";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,16 +41,58 @@ function a11yProps(index: number) {
 
 export default function BasicTabs() {
   const [value, setValue] = useState(0);
-  const [data, setData] = useState([]);
+  const [fennData, setFennData] = useState([]);
+  const [fennListData, setFennListData] = useState<any>({
+    qrupno:[],
+    name:[],
+    lab:[]
+  });
+  const [selectedQrupno, setSelectedQrupno] = useState("");
+const [selectedName, setSelectedName] = useState("");
+const [selectedLab, setSelectedLab] = useState("");
 
-  const getData = async () => {
+const handleQrupnoChange = (selectedValue: string) => {
+  setSelectedQrupno(selectedValue);
+};
+
+const handleNameChange = (selectedValue: string) => {
+  setSelectedName(selectedValue);
+};
+
+const handleLabChange = (selectedValue: string) => {
+  setSelectedLab(selectedValue);
+};
+
+const filteredData = useMemo(() => {
+  let filtered = [...fennData];
+  if (selectedQrupno) {
+    filtered = filtered.filter((item:any) => item.qrupno === selectedQrupno);
+  }
+  if (selectedName) {
+    filtered = filtered.filter((item:any) => item.name === selectedName);
+  }
+  if (selectedLab) {
+    filtered = filtered.filter((item:any) => item.lab === selectedLab);
+  }
+  return filtered;
+}, [fennData, selectedQrupno, selectedName, selectedLab]);
+
+
+  const getFennData = async () => {
     await fetch("http://localhost:5000/fenn")
       .then((x) => x.json())
-      .then((x) => setData(x));
+      .then((x) => setFennData(x));
   };
 
+  const getFennListData = async () => {
+    await fetch("http://localhost:5000/fennlist")
+      .then((x) => x.json())
+      .then((x) => setFennListData(x));
+  }
+
   useEffect(() => {
-    getData();
+    getFennData();
+    getFennListData()
   }, []);
 
   const columns = useMemo(
@@ -107,18 +150,46 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Fənn" {...a11yProps(0)} />
           <Tab label="Item Two" {...a11yProps(1)} />
           <Tab label="Item Three" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <DataTable
-          keyField="id"
-          columns={columns}
-          data={data}
-          pagination={true}
-        ></DataTable>
+        <div className="w-[100%] m-auto  flex justify-between">
+          <div className="w-[33%]">
+            <SelectOption 
+            options={Array.isArray(fennListData) ? fennListData.map((x:any) => ({value: x.qrupno, label: x.qrupno})) : []}
+            value={fennListData.qrupno}
+            onChange={handleQrupnoChange}
+            placeholder="QrupNo..."
+            />
+          </div>
+          <div className="w-[33%]">
+            <SelectOption 
+            options={Array.isArray(fennListData) ? fennListData.map((x:any) => ({value: x.name, label: x.name})) : []} 
+            value={fennListData.name}
+            onChange={handleNameChange}
+            placeholder="Name..."
+            />
+          </div>
+          <div className="w-[33%]">
+            <SelectOption 
+            options={Array.isArray(fennListData) ? fennListData.map((x:any) => ({value: x.lab, label: x.lab})) : []}
+            value={fennListData.lab}
+            onChange={handleLabChange}
+            placeholder="Lab..."
+            />
+          </div>
+        </div>
+        <div className="mt-5">
+          <DataTable
+            keyField="id"
+            columns={columns}
+            data={filteredData}
+            pagination={true}
+          ></DataTable>
+        </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two

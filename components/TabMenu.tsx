@@ -43,40 +43,39 @@ export default function BasicTabs() {
   const [value, setValue] = useState(0);
   const [fennData, setFennData] = useState([]);
   const [fennListData, setFennListData] = useState<any>({
-    qrupno:[],
-    name:[],
-    lab:[]
+    qrupno: [],
+    name: [],
+    lab: [],
   });
   const [selectedQrupno, setSelectedQrupno] = useState("");
-const [selectedName, setSelectedName] = useState("");
-const [selectedLab, setSelectedLab] = useState("");
+  const [selectedName, setSelectedName] = useState("");
+  const [selectedLab, setSelectedLab] = useState("");
 
-const handleQrupnoChange = (selectedValue: string) => {
-  setSelectedQrupno(selectedValue);
-};
+  const handleQrupnoChange = (selectedValue: string) => {
+    setSelectedQrupno(selectedValue);
+  };
 
-const handleNameChange = (selectedValue: string) => {
-  setSelectedName(selectedValue);
-};
+  const handleNameChange = (selectedValue: string) => {
+    setSelectedName(selectedValue);
+  };
 
-const handleLabChange = (selectedValue: string) => {
-  setSelectedLab(selectedValue);
-};
+  const handleLabChange = (selectedValue: string) => {
+    setSelectedLab(selectedValue);
+  };
 
-const filteredData = useMemo(() => {
-  let filtered = [...fennData];
-  if (selectedQrupno) {
-    filtered = filtered.filter((item:any) => item.qrupno === selectedQrupno);
-  }
-  if (selectedName) {
-    filtered = filtered.filter((item:any) => item.name === selectedName);
-  }
-  if (selectedLab) {
-    filtered = filtered.filter((item:any) => item.lab === selectedLab);
-  }
-  return filtered;
-}, [fennData, selectedQrupno, selectedName, selectedLab]);
-
+  const filteredData = useMemo(() => {
+    let filtered = [...fennData];
+    if (selectedQrupno) {
+      filtered = filtered.filter((item: any) => item.qrupno === selectedQrupno);
+    }
+    if (selectedName) {
+      filtered = filtered.filter((item: any) => item.name === selectedName);
+    }
+    if (selectedLab) {
+      filtered = filtered.filter((item: any) => item.lab === selectedLab);
+    }
+    return filtered;
+  }, [fennData, selectedQrupno, selectedName, selectedLab]);
 
   const getFennData = async () => {
     await fetch("http://localhost:5000/fenn")
@@ -88,11 +87,11 @@ const filteredData = useMemo(() => {
     await fetch("http://localhost:5000/fennlist")
       .then((x) => x.json())
       .then((x) => setFennListData(x));
-  }
+  };
 
   useEffect(() => {
     getFennData();
-    getFennListData()
+    getFennListData();
   }, []);
 
   const columns = useMemo(
@@ -100,7 +99,7 @@ const filteredData = useMemo(() => {
       {
         name: "No",
         selector: (row: any) => row.id,
-        width: "50px",
+        width: "70px",
       },
       {
         name: "Tarix",
@@ -138,6 +137,16 @@ const filteredData = useMemo(() => {
     []
   );
 
+  const tableHeaderstyle={
+    headCells:{
+      style:{
+        fontWeight:"bold",
+        fontSize:"15px",
+        background:"LightSteelBlue"
+      }
+    }
+  }
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -151,34 +160,56 @@ const filteredData = useMemo(() => {
           aria-label="basic tabs example"
         >
           <Tab label="Fənn" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Semestr ərzində tələbələrin mənimsəmə göstəriciləri barədə  aylıq MƏLUMAT" {...a11yProps(1)}/>
+          <Tab label="Elektron jurnala tam baxmaq" {...a11yProps(2)} />
+          <Tab label="Elektron materiallar" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <div className="w-[100%] m-auto  flex justify-between">
           <div className="w-[33%]">
-            <SelectOption 
-            options={Array.isArray(fennListData) ? fennListData.map((x:any) => ({value: x.qrupno, label: x.qrupno})) : []}
-            value={fennListData.qrupno}
-            onChange={handleQrupnoChange}
-            placeholder="QrupNo..."
+            <SelectOption
+              options={
+                Array.isArray(fennListData)
+                  ? fennListData.map((x: any) => ({
+                      value: x.qrupno,
+                      label: x.qrupno,
+                    }))
+                  : []
+              }
+              value={fennListData.qrupno}
+              onChange={handleQrupnoChange}
+              placeholder="QrupNo..."
             />
           </div>
           <div className="w-[33%]">
-            <SelectOption 
-            options={Array.isArray(fennListData) ? fennListData.map((x:any) => ({value: x.name, label: x.name})) : []} 
-            value={fennListData.name}
-            onChange={handleNameChange}
-            placeholder="Name..."
+            <SelectOption
+              options={
+                Array.isArray(fennListData)
+                  ? fennListData.map((x: any) => ({
+                      value: x.name,
+                      label: x.name,
+                    }))
+                  : []
+              }
+              value={fennListData.name}
+              onChange={handleNameChange}
+              placeholder="Name..."
             />
           </div>
           <div className="w-[33%]">
-            <SelectOption 
-            options={Array.isArray(fennListData) ? fennListData.map((x:any) => ({value: x.lab, label: x.lab})) : []}
-            value={fennListData.lab}
-            onChange={handleLabChange}
-            placeholder="Lab..."
+            <SelectOption
+              options={
+                Array.isArray(fennListData)
+                  ? fennListData.map((x: any) => ({
+                      value: x.lab,
+                      label: x.lab,
+                    }))
+                  : []
+              }
+              value={fennListData.lab}
+              onChange={handleLabChange}
+              placeholder="Lab..."
             />
           </div>
         </div>
@@ -188,6 +219,11 @@ const filteredData = useMemo(() => {
             columns={columns}
             data={filteredData}
             pagination={true}
+            paginationPerPage={8}
+            customStyles={tableHeaderstyle}
+            fixedHeader
+            selectableRowsHighlight
+            highlightOnHover
           ></DataTable>
         </div>
       </CustomTabPanel>
@@ -195,6 +231,9 @@ const filteredData = useMemo(() => {
         Item Two
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
+        Item Three
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
         Item Three
       </CustomTabPanel>
     </Box>

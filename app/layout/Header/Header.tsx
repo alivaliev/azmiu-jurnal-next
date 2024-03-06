@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function Header() {
   return (
-    <header className="relative bg-white p-10 shadow">
+    <header className="fixed w-[85%] z-[1000] bg-white p-10 shadow">
       <div className="absolute right-[80px] bottom-6">
         Ali Valiev
       </div>

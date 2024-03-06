@@ -15,7 +15,7 @@ import { blue, brown, grey, red } from "@mui/material/colors";
 function VerticalLayout() {
   return (
     <div>
-      <div className="bg-[#151B54] h-[100vh] ">
+      <div className="bg-[#151B54] w-[15%] h-[100vh] fixed">
         <Link href={"/"}>
           <Image
             className="pt-2 ml-2"

@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import DataTable from "react-data-table-component";
 import { useEffect, useMemo, useState } from "react";
 import SelectOption from "./SelectOption";
+import Pagination from "@mui/material/Pagination";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -119,13 +120,13 @@ export default function BasicTabs() {
         name: "Action",
         cell: (d: any) => [
           <button
-            key={d.id}
+          key={`${d.id}-add`}
             className=" bg-transparent transition hover:bg-green-400 text-gray-700 font-semibold hover:text-white px-[10px] py-[7px] text-[11px] border border-green-500 hover:border-transparent rounded"
           >
             +
           </button>,
           <button
-            key={d.id}
+          key={`${d.id}-delete`}
             className="ml-3 bg-transparent transition hover:bg-red-400 text-gray-700 font-semibold hover:text-white p-[7px] text-[11px] border border-red-500 hover:border-transparent rounded"
           >
             Sil
@@ -137,106 +138,166 @@ export default function BasicTabs() {
     []
   );
 
-  const tableHeaderstyle={
-    headCells:{
-      style:{
-        fontWeight:"bold",
-        fontSize:"15px",
-        background:"LightSteelBlue"
-      }
-    }
-  }
+  const tableHeaderstyle = {
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        fontSize: "15px",
+        background: "LightSteelBlue",
+      },
+    },
+  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label="Fənn" {...a11yProps(0)} />
-          <Tab label="Semestr ərzində tələbələrin mənimsəmə göstəriciləri barədə  aylıq MƏLUMAT" {...a11yProps(1)}/>
-          <Tab label="Elektron jurnala tam baxmaq" {...a11yProps(2)} />
-          <Tab label="Elektron materiallar" {...a11yProps(3)} />
-        </Tabs>
+    <div className="mt-14">
+      <div className="w-[100%] flex justify-between">
+        <div className="w-[33%]">
+          <SelectOption
+            options={
+              Array.isArray(fennListData)
+                ? fennListData.map((x: any) => ({
+                    value: x.qrupno,
+                    label: x.qrupno,
+                  }))
+                : []
+            }
+            value={fennListData.qrupno}
+            onChange={handleQrupnoChange}
+            placeholder="QrupNo..."
+          />
+        </div>
+        <div className="w-[33%]">
+          <SelectOption
+            options={
+              Array.isArray(fennListData)
+                ? fennListData.map((x: any) => ({
+                    value: x.name,
+                    label: x.name,
+                  }))
+                : []
+            }
+            value={fennListData.name}
+            onChange={handleNameChange}
+            placeholder="Name..."
+          />
+        </div>
+        <div className="w-[33%]">
+          <SelectOption
+            options={
+              Array.isArray(fennListData)
+                ? fennListData.map((x: any) => ({
+                    value: x.lab,
+                    label: x.lab,
+                  }))
+                : []
+            }
+            value={fennListData.lab}
+            onChange={handleLabChange}
+            placeholder="Lab..."
+          />
+        </div>
+      </div>
+      <Box sx={{ width: "100%", marginTop: "30px" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="jurnal" {...a11yProps(4)} />
+            <Tab label="sillabus" {...a11yProps(0)} />
+            <Tab
+              label="Semestr ərzində tələbələrin mənimsəmə göstəriciləri barədə  aylıq MƏLUMAT"
+              {...a11yProps(1)}
+            />
+            <Tab label="Elektron jurnala tam baxmaq" {...a11yProps(2)} />
+            <Tab label="Elektron materiallar" {...a11yProps(3)} />
+          </Tabs>
+        </Box>
+        <CustomTabPanel value={value} index={0}>
+          {/* <div className="w-[100%] m-auto  flex justify-between">
+            <div className="w-[33%]">
+              <SelectOption
+                options={
+                  Array.isArray(fennListData)
+                    ? fennListData.map((x: any) => ({
+                        value: x.qrupno,
+                        label: x.qrupno,
+                      }))
+                    : []
+                }
+                value={fennListData.qrupno}
+                onChange={handleQrupnoChange}
+                placeholder="QrupNo..."
+              />
+            </div>
+            <div className="w-[33%]">
+              <SelectOption
+                options={
+                  Array.isArray(fennListData)
+                    ? fennListData.map((x: any) => ({
+                        value: x.name,
+                        label: x.name,
+                      }))
+                    : []
+                }
+                value={fennListData.name}
+                onChange={handleNameChange}
+                placeholder="Name..."
+              />
+            </div>
+            <div className="w-[33%]">
+              <SelectOption
+                options={
+                  Array.isArray(fennListData)
+                    ? fennListData.map((x: any) => ({
+                        value: x.lab,
+                        label: x.lab,
+                      }))
+                    : []
+                }
+                value={fennListData.lab}
+                onChange={handleLabChange}
+                placeholder="Lab..."
+              />
+            </div>
+          </div> */}
+          <div className="mt-5">
+            <DataTable
+              keyField="id"
+              columns={columns}
+              data={filteredData}
+              pagination={true}
+              paginationPerPage={8}
+              paginationRowsPerPageOptions={[8, 12, 16, 20]}
+              customStyles={tableHeaderstyle}
+              selectableRowsHighlight
+              highlightOnHover
+              striped
+              pointerOnHover
+              // paginationResetDefaultPage={true}
+              // paginationTotalRows={14}
+            ></DataTable>
+          </div>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          Item Two
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          Item Three
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={3}>
+          Item Three
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={4}>
+          Item Three
+        </CustomTabPanel>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <div className="w-[100%] m-auto  flex justify-between">
-          <div className="w-[33%]">
-            <SelectOption
-              options={
-                Array.isArray(fennListData)
-                  ? fennListData.map((x: any) => ({
-                      value: x.qrupno,
-                      label: x.qrupno,
-                    }))
-                  : []
-              }
-              value={fennListData.qrupno}
-              onChange={handleQrupnoChange}
-              placeholder="QrupNo..."
-            />
-          </div>
-          <div className="w-[33%]">
-            <SelectOption
-              options={
-                Array.isArray(fennListData)
-                  ? fennListData.map((x: any) => ({
-                      value: x.name,
-                      label: x.name,
-                    }))
-                  : []
-              }
-              value={fennListData.name}
-              onChange={handleNameChange}
-              placeholder="Name..."
-            />
-          </div>
-          <div className="w-[33%]">
-            <SelectOption
-              options={
-                Array.isArray(fennListData)
-                  ? fennListData.map((x: any) => ({
-                      value: x.lab,
-                      label: x.lab,
-                    }))
-                  : []
-              }
-              value={fennListData.lab}
-              onChange={handleLabChange}
-              placeholder="Lab..."
-            />
-          </div>
-        </div>
-        <div className="mt-5">
-          <DataTable
-            keyField="id"
-            columns={columns}
-            data={filteredData}
-            pagination={true}
-            paginationPerPage={8}
-            customStyles={tableHeaderstyle}
-            fixedHeader
-            selectableRowsHighlight
-            highlightOnHover
-          ></DataTable>
-        </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        Item Three
-      </CustomTabPanel>
-    </Box>
+    </div>
   );
 }
 

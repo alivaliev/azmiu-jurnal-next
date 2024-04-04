@@ -6,7 +6,7 @@ import BasicTabs from "@/components/TabMenu";
 
 function Subject() {
   return (
-    <div className="mt-10 p-5">
+    <div className="mt-20 p-5">
       <BasicTabs/>
     </div>
   );

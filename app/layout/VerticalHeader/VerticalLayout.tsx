@@ -18,7 +18,7 @@ function VerticalLayout() {
       <div className="bg-[#151B54] w-[15%] h-[100vh] fixed">
         <Link href={"/"}>
           <Image
-            className="pt-2 ml-2"
+            className="pt-2 "
             src="/logo.png"
             width={250}
             height={250}
@@ -27,7 +27,7 @@ function VerticalLayout() {
         </Link>
         <div className="mt-2 p-5">
           <ul >
-            <li >
+            <li className="flex items-center text-m text-gray-400 hover:text-white hover:fill-white transition duration-[30ms]">
               <AutoStoriesIcon 
               sx={{  fontSize: 15 }}
                />
@@ -35,7 +35,7 @@ function VerticalLayout() {
                 Fənn
               </Link>
             </li>
-            <li>
+            <li className="flex items-center text-m text-gray-400 hover:text-white hover:fill-white transition duration-[30ms]">
             <CalendarViewMonthIcon 
               sx={{  fontSize: 15 }}
                />

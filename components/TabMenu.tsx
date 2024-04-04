@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import DataTable from "react-data-table-component";
 import { useEffect, useMemo, useState } from "react";
 import SelectOption from "./SelectOption";
-import Pagination from "@mui/material/Pagination";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -32,6 +31,8 @@ function CustomTabPanel(props: TabPanelProps) {
     </div>
   );
 }
+
+
 
 function a11yProps(index: number) {
   return {
@@ -103,30 +104,30 @@ export default function BasicTabs() {
         width: "70px",
       },
       {
+        name: "S A A",
+        selector: (row: any) => row.saa,
+        width: "200px",
+      },
+      {
+        name: "Q/lim",
+        selector: (row: any) => row.qayiblimit,
+        width: "80px",
+      },
+      {
         name: "Tarix",
         selector: (row: any) => row.tarix,
-        width: "150px",
-      },
-      {
-        name: "Saat",
-        selector: (row: any) => row.saat,
-        width: "150px",
-      },
-      {
-        name: "Movzu",
-        selector: (row: any) => row.movzu,
       },
       {
         name: "Action",
         cell: (d: any) => [
           <button
-          key={`${d.id}-add`}
+            key={`${d.id}-add`}
             className=" bg-transparent transition hover:bg-green-400 text-gray-700 font-semibold hover:text-white px-[10px] py-[7px] text-[11px] border border-green-500 hover:border-transparent rounded"
           >
             +
           </button>,
           <button
-          key={`${d.id}-delete`}
+            key={`${d.id}-delete`}
             className="ml-3 bg-transparent transition hover:bg-red-400 text-gray-700 font-semibold hover:text-white p-[7px] text-[11px] border border-red-500 hover:border-transparent rounded"
           >
             Sil
@@ -153,7 +154,7 @@ export default function BasicTabs() {
   };
 
   return (
-    <div className="mt-14">
+    <div>
       <div className="w-[100%] flex justify-between">
         <div className="w-[33%]">
           <SelectOption
@@ -219,53 +220,6 @@ export default function BasicTabs() {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          {/* <div className="w-[100%] m-auto  flex justify-between">
-            <div className="w-[33%]">
-              <SelectOption
-                options={
-                  Array.isArray(fennListData)
-                    ? fennListData.map((x: any) => ({
-                        value: x.qrupno,
-                        label: x.qrupno,
-                      }))
-                    : []
-                }
-                value={fennListData.qrupno}
-                onChange={handleQrupnoChange}
-                placeholder="QrupNo..."
-              />
-            </div>
-            <div className="w-[33%]">
-              <SelectOption
-                options={
-                  Array.isArray(fennListData)
-                    ? fennListData.map((x: any) => ({
-                        value: x.name,
-                        label: x.name,
-                      }))
-                    : []
-                }
-                value={fennListData.name}
-                onChange={handleNameChange}
-                placeholder="Name..."
-              />
-            </div>
-            <div className="w-[33%]">
-              <SelectOption
-                options={
-                  Array.isArray(fennListData)
-                    ? fennListData.map((x: any) => ({
-                        value: x.lab,
-                        label: x.lab,
-                      }))
-                    : []
-                }
-                value={fennListData.lab}
-                onChange={handleLabChange}
-                placeholder="Lab..."
-              />
-            </div>
-          </div> */}
           <div className="mt-5">
             <DataTable
               keyField="id"
@@ -279,8 +233,6 @@ export default function BasicTabs() {
               highlightOnHover
               striped
               pointerOnHover
-              // paginationResetDefaultPage={true}
-              // paginationTotalRows={14}
             ></DataTable>
           </div>
         </CustomTabPanel>
